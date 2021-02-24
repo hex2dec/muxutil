@@ -13,12 +13,13 @@ type JSONRender struct {
 	Streaming bool
 }
 
-func (j *JSONRender) Render(w io.Writer, data interface{}) error {
+// Render writes a json data response
+func (j *JSONRender) Render(w io.Writer, v interface{}) error {
 	if j.Streaming {
-		return json.NewEncoder(w).Encode(data)
+		return json.NewEncoder(w).Encode(v)
 	}
 
-	result, err := json.Marshal(data)
+	result, err := json.Marshal(v)
 	if err != nil {
 		return err
 	}
@@ -26,6 +27,7 @@ func (j *JSONRender) Render(w io.Writer, data interface{}) error {
 	return nil
 }
 
+// ContentType returns json content-type
 func (j *JSONRender) ContentType() string {
 	return "application/json"
 }
