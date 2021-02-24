@@ -27,3 +27,7 @@ func textRenderHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 ```
+
+## License
+
+Licensed under the [Apache 2.0](./LICENSE). The TFCloud Go Team.
