@@ -2,6 +2,17 @@
 
 A collections of helpers for gorilla/mux and Go's net/http.
 
+## Middlewares
+
+### Server Header
+
+```go
+sh := &middleware.ServerHeader{
+	Name: "TFCloud Go Server",
+}
+r.Use(sh.Middleware)
+```
+
 ## Renders
 
 ### JSON
