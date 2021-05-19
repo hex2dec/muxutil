@@ -8,14 +8,52 @@ A collections of helpers for gorilla/mux and Go's net/http.
 
 ```go
 func main() {
-        // ...
+	// ...
 
-        r := mux.NewRouter()
+	r := mux.NewRouter()
 
-        hc := handler.NewHealthCheck()
-        r.HandleFunc("/healthcheck", hc.CheckStatus).Methods(http.MethodGet)
+	hc := handler.NewHealthCheck()
+	r.HandleFunc("/healthcheck", hc.CheckStatus).Methods(http.MethodGet)
 
-        // ...
+	// ...
+}
+```
+
+## Helpers
+
+### Response helper
+
+Response with JSON format.
+
+```go
+func fooHandler(w http.ResponseWriter, r *http.Request) {
+	// ...
+
+	// response error with JSON format
+	err := errors.New("bar")
+	helper.ResponseErrorJSON(w, http.StatusBadRequest, err)
+
+	// response data with JSON format
+	d := map[string]interface{}{
+		"foo": "bar",
+	}
+	helper.ResponseJSON(w, http.StatusOK, d)
+}
+```
+
+Response with Text format.
+
+```go
+func fooHandler(w http.ResponseWriter, r *http.Request) {
+	// ...
+
+	// response error with text format
+	err := errors.New("bar")
+	helper.ResponseErrorText(w, http.StatusBadRequest, err)
+
+	// response data with text format
+	d := "bar"
+	helper.ResponseText(w, http.StatusOK, d)
 }
 ```
 
