@@ -2,6 +2,23 @@
 
 A collections of helpers for gorilla/mux and Go's net/http.
 
+## Handlers
+
+### Health Check Handler
+
+```go
+func main() {
+        // ...
+
+        r := mux.NewRouter()
+
+        hc := handler.NewHealthCheck()
+        r.HandleFunc("/healthcheck", hc.CheckStatus).Methods(http.MethodGet)
+
+        // ...
+}
+```
+
 ## Middlewares
 
 ### Server Header
