@@ -41,7 +41,7 @@ func fooHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Response with Text format.
+Response with text format.
 
 ```go
 func fooHandler(w http.ResponseWriter, r *http.Request) {
@@ -54,6 +54,53 @@ func fooHandler(w http.ResponseWriter, r *http.Request) {
 	// response data with text format
 	d := "bar"
 	helper.ResponseText(w, http.StatusOK, d)
+}
+```
+
+### Parse request & response body
+
+Parse request body with JSON format.
+
+```go
+type Foo struct {
+	Name string
+}
+
+func fooHandler(w http.ResponseWriter, r *http.Request) {
+	// ...
+
+	foo := &Foo{}
+	if err := helper.ParseRequestBodyJSON(w, r, foo); err != nil {
+		helper.ResponseErrorJSON(w, http.StatusBadRequest, err)
+		return
+	}
+
+	fmt.Println(foo.Name)
+
+	// ...
+}
+```
+
+Parse response body with JSON format.
+
+```go
+type Foo struct {
+	Name string
+}
+
+func fooHandler(w http.ResponseWriter, r *http.Request) {
+	// ...
+
+	resp, _ := http.DefaultClient.Do(req)
+
+	foo := &Foo{}
+	if err := helper.ParseResponseBodyJSON(resp, foo); err != nil {
+		// ...
+	}
+
+	fmt.Println(foo.Name)
+
+	// ...
 }
 ```
 
