@@ -141,6 +141,17 @@ func textRenderHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+## Server
+
+```go
+func main() {
+	r := mux.NewRouter()
+
+	s := server.NewServer("127.0.0.1", "8080")
+	_ = s.Run(r)
+}
+```
+
 ## License
 
 Licensed under the [Apache 2.0](./LICENSE). The TFCloud Go Team.
